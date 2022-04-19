@@ -3,6 +3,7 @@ import json
 from bs4 import BeautifulSoup
 import requests
 from dataclasses import dataclass
+import html 
 
 
 # -------------------------------------------
@@ -29,7 +30,7 @@ class Holiday:
 # Each method has pseudo-code instructions
 # --------------------------------------------
 class HolidayList:
-   def __init__(self):
+    def __init__(self):
        self.innerHolidays = []
    
     def addHoliday(holidayObj):
@@ -47,7 +48,7 @@ class HolidayList:
         yearInput = input('Which year? ')
         weekInput = input('Which week? (Leave blank for current week.' )
 
-        print('These are the holidays for' yearInput 'week' 'weekInput:')
+        #print('These are the holidays for') yearInput (' week') weekInput(':')
 
 
 
@@ -56,57 +57,66 @@ class HolidayList:
         # remove the Holiday from innerHolidays
         # inform user you deleted the holiday
         del HolidayName._name
-         return(HolidayName 'has been removed.')
+        #return(HolidayName 'has been removed.')
 
     def read_json(filelocation):
         # Read in things from json file location
         # Use addHoliday function to add holidays to inner list.
 
-    def save_to_json(filelocation):
+        def save_to_json(filelocation):
         # Write out json file to selected file.
         
-    def scrapeHolidays(url):
+            def scrapeHolidays(url):
         # Scrape Holidays from https://www.timeanddate.com/holidays/us/ 
         # Remember, 2 previous years, current year, and 2  years into the future. You can scrape multiple years by adding year to the timeanddate URL. For example https://www.timeanddate.com/holidays/us/2022
         # Check to see if name and date of holiday is in innerHolidays array
         # Add non-duplicates to innerHolidays
         # Handle any exceptions.  
-        response = requests.get('https://www.timeanddate.com/holidays/us/2020')
-        response = requests.get('https://www.timeanddate.com/holidays/us/2021')
-        response = requests.get('https://www.timeanddate.com/holidays/us/2022')
-        response = requests.get('https://www.timeanddate.com/holidays/us/2023')
-        response = requests.get('https://www.timeanddate.com/holidays/us/2024')
-        soup = BeautifulSoup(html,'html.parser')
-        table = soup.find('table',attrs = {'class':'table table--left table--inner-borders-rows table--full-width table--sticky table--holidaycountry'})
-        holidays = []
-        for row in table.find_all_next('tr'):
-            cells = row.find_all_next('td')
-            holiday = {}
-            date = cells[0].datetime
-            name = cells[2].string
-            holidays.append(holiday)
+                response = requests.get(url)
+                return response.text
+                
+response20 = requests.get("https://www.timeanddate.com/holidays/us/2020")
+#response21 = requests.get('https://www.timeanddate.com/holidays/us/2021')
+#response22 = requests.get('https://www.timeanddate.com/holidays/us/2022')
+#response23 = requests.get('https://www.timeanddate.com/holidays/us/2023')
+#response24 = requests.get('https://www.timeanddate.com/holidays/us/2024')
+print(response20.status_code)
+
+html = scrapeHolidays("https://www.timeanddate.com/holidays/us/2020")
+soup = BeautifulSoup(html,'html.parser')
+table = soup.find('table',attrs = {'class':'table table--left table--inner-borders-rows table--full-width table--sticky table--holidaycountry'})
+holidays = []
+for row in table.find_all_next('tr'):
+        cells = row.find_all_next('td')
+        holiday = {}
+        date = cells[0].datetime
+        name = cells[0].string
+        holidays.append(holiday)
+
+list(holidays)
+print(holidays)
             
-    def numHolidays():
+def numHolidays():
         # Return the total number of holidays in innerHolidays
     
-    def filter_holidays_by_week(year, week_number):
+        def filter_holidays_by_week(year, week_number):
         # Use a Lambda function to filter by week number and save this as holidays, use the filter on innerHolidays
         # Week number is part of the the Datetime object
         # Cast filter results as list
         # return your holidays
 
-    def displayHolidaysInWeek(holidayList):
+            def displayHolidaysInWeek(holidayList):
         # Use your filter_holidays_by_week to get list of holidays within a week as a parameter
         # Output formated holidays in the week. 
         # * Remember to use the holiday __str__ method.
 
-    def getWeather(weekNum):
+    #def getWeather(weekNum):
         # Convert weekNum to range between two digits
         # Use Try / Except to catch problems
         # Query API for weather in that week range (uso definition rather than rolling 7 day week)
         # Format weather information and return weather string.
 
-    def viewCurrentWeek():
+    #def viewCurrentWeek():
         # Use the Datetime Module to look up current week and year
         # Use your filter_holidays_by_week function to get the list of holidays 
         # for the current week/year
@@ -116,7 +126,7 @@ class HolidayList:
 
 
 
-def main():
+#def main():
     # Large Pseudo Code steps
     # -------------------------------------
     # 1. Initialize HolidayList Object
@@ -129,8 +139,8 @@ def main():
     # 7. Ask the User if they would like to Continue, if not, end the while loop, ending the program.  If they do wish to continue, keep the program going. 
 
 
-if __name__ == "__main__":
-    main();
+#if __name__ == "__main__":
+    #main();
 
 
 # Additional Hints:
