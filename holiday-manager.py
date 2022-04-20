@@ -46,7 +46,7 @@ class HolidayList:
         # Find Holiday in innerHolidays
         # Return Holiday
         yearInput = input('Which year? ')
-        weekInput = input('Which week? (Leave blank for current week.' )
+        #weekInput = input('Which week? (Leave blank for current week.' )
 
         #print('These are the holidays for') yearInput (' week') weekInput(':')
 
@@ -57,44 +57,52 @@ class HolidayList:
         # remove the Holiday from innerHolidays
         # inform user you deleted the holiday
         del HolidayName._name
-        #return(HolidayName 'has been removed.')
+        return HolidayName ('has been removed.')
 
     def read_json(filelocation):
         # Read in things from json file location
+        f= open('holiday.json')
+        holiday = json.load(f)
+        for i in holiday['holidays']:
+            json.loads(holiday.read())
         # Use addHoliday function to add holidays to inner list.
 
         def save_to_json(filelocation):
         # Write out json file to selected file.
-        
+            with open("holidays.json", "w") as writeJSON:
+                json.dump(holiday, writeJSON)
+
+
             def scrapeHolidays(url):
-        # Scrape Holidays from https://www.timeanddate.com/holidays/us/ 
-        # Remember, 2 previous years, current year, and 2  years into the future. You can scrape multiple years by adding year to the timeanddate URL. For example https://www.timeanddate.com/holidays/us/2022
-        # Check to see if name and date of holiday is in innerHolidays array
-        # Add non-duplicates to innerHolidays
-        # Handle any exceptions.  
+                # Scrape Holidays from https://www.timeanddate.com/holidays/us/ 
+                # Remember, 2 previous years, current year, and 2  years into the future. You can scrape multiple years by adding year to the timeanddate URL. For example https://www.timeanddate.com/holidays/us/2022
+                # Check to see if name and date of holiday is in innerHolidays array
+                # Add non-duplicates to innerHolidays
+                # Handle any exceptions.  
                 response = requests.get(url)
                 return response.text
-                
-response20 = requests.get("https://www.timeanddate.com/holidays/us/2020")
-#response21 = requests.get('https://www.timeanddate.com/holidays/us/2021')
-#response22 = requests.get('https://www.timeanddate.com/holidays/us/2022')
-#response23 = requests.get('https://www.timeanddate.com/holidays/us/2023')
-#response24 = requests.get('https://www.timeanddate.com/holidays/us/2024')
-print(response20.status_code)
+                    
+            response = requests.get("https://www.timeanddate.com/holidays/us/2020")
+            #response21 = requests.get('https://www.timeanddate.com/holidays/us/2021')
+            #response22 = requests.get('https://www.timeanddate.com/holidays/us/2022')
+            #response23 = requests.get('https://www.timeanddate.com/holidays/us/2023')
+            #response24 = requests.get('https://www.timeanddate.com/holidays/us/2024')
+            print(response.status_code)
 
-html = scrapeHolidays("https://www.timeanddate.com/holidays/us/2020")
-soup = BeautifulSoup(html,'html.parser')
-table = soup.find('table',attrs = {'class':'table table--left table--inner-borders-rows table--full-width table--sticky table--holidaycountry'})
-holidays = []
-for row in table.find_all_next('tr'):
-        cells = row.find_all_next('td')
-        holiday = {}
-        date = cells[0].datetime
-        name = cells[0].string
-        holidays.append(holiday)
+            html = scrapeHolidays("https://www.timeanddate.com/holidays/us/2020")
+            soup = BeautifulSoup(html,'html.parser')
+            table = soup.find('table',attrs = {'class':'table'})
+            holidays = []
+            for row in table.find_all_next('tr'):
+                    cells = row.find_all_next('a')
+                    holiday = {}
+                    holiday['Date'] = cells[0].string
+                    holiday['Holiday'] = cells[0].string
+                    holidays.append(holiday)
 
-list(holidays)
-print(holidays)
+            list(holidays)
+            print(holidays)
+
             
 def numHolidays():
         # Return the total number of holidays in innerHolidays
@@ -116,32 +124,31 @@ def numHolidays():
         # Query API for weather in that week range (uso definition rather than rolling 7 day week)
         # Format weather information and return weather string.
 
-    #def viewCurrentWeek():
-        # Use the Datetime Module to look up current week and year
-        # Use your filter_holidays_by_week function to get the list of holidays 
-        # for the current week/year
-        # Use your displayHolidaysInWeek function to display the holidays in the week
-        # Ask user if they want to get the weather
-        # If yes, use your getWeather function and display results
+                def viewCurrentWeek():
+                    # Use the Datetime Module to look up current week and year
+                    # Use your filter_holidays_by_week function to get the list of holidays 
+                    # for the current week/year
+                    # Use your displayHolidaysInWeek function to display the holidays in the week
+                    # Ask user if they want to get the weather
+                    # If yes, use your getWeather function and display results
 
 
 
-#def main():
-    # Large Pseudo Code steps
-    # -------------------------------------
-    # 1. Initialize HolidayList Object
-    # 2. Load JSON file via HolidayList read_json function
-    # 3. Scrape additional holidays using your HolidayList scrapeHolidays function.
-    # 3. Create while loop for user to keep adding or working with the Calender
-    # 4. Display User Menu (Print the menu)
-    # 5. Take user input for their action based on Menu and check the user input for errors
-    # 6. Run appropriate method from the HolidayList object depending on what the user input is
-    # 7. Ask the User if they would like to Continue, if not, end the while loop, ending the program.  If they do wish to continue, keep the program going. 
+                    def main():
+                        # Large Pseudo Code steps
+                        # -------------------------------------
+                        # 1. Initialize HolidayList Object
+                        # 2. Load JSON file via HolidayList read_json function
+                        # 3. Scrape additional holidays using your HolidayList scrapeHolidays function.
+                        # 3. Create while loop for user to keep adding or working with the Calender
+                        # 4. Display User Menu (Print the menu)
+                        # 5. Take user input for their action based on Menu and check the user input for errors
+                        # 6. Run appropriate method from the HolidayList object depending on what the user input is
+                        # 7. Ask the User if they would like to Continue, if not, end the while loop, ending the program.  If they do wish to continue, keep the program going. 
 
 
-#if __name__ == "__main__":
-    #main();
-
+                        if __name__ == "__main__":
+                            main()
 
 # Additional Hints:
 # ---------------------------------------------
@@ -149,7 +156,6 @@ def numHolidays():
 #
 # No one function should be more then 50 lines of code, if you need more then 50 lines of code
 # excluding comments, break the function into multiple functions.
-#
 # You can store your raw menu text, and other blocks of texts as raw text files 
 # and use placeholder values with the format option.
 # Example:
