@@ -17,7 +17,7 @@ class Holiday:
     def __init__(self,name, date):
         #Your Code Here
         self._name = name
-        self._date = date        
+        self._date = datetime        
     
     def __str__ (self):
         # String output
@@ -45,10 +45,11 @@ class HolidayList:
     def findHoliday(HolidayName, Date):
         # Find Holiday in innerHolidays
         # Return Holiday
+        holiday = HolidayName.innerHolidays
         yearInput = input('Which year? ')
-        #weekInput = input('Which week? (Leave blank for current week.' )
+        weekInput = input('Which week? (Leave blank for current week.' )
 
-        #print('These are the holidays for') yearInput (' week') weekInput(':')
+        print('These are the holidays for') yearInput (' week') weekInput(':')
 
 
 
@@ -56,7 +57,7 @@ class HolidayList:
         # Find Holiday in innerHolidays by searching the name and date combination.
         # remove the Holiday from innerHolidays
         # inform user you deleted the holiday
-        del HolidayName._name
+        del HolidayName.innerHolidays
         return HolidayName ('has been removed.')
 
     def read_json(filelocation):
@@ -96,7 +97,7 @@ class HolidayList:
             for row in table.find_all_next('tr'):
                     cells = row.find_all_next('a')
                     holiday = {}
-                    holiday['Date'] = cells[0].string
+                    #holiday['Date'] = cells[0].string
                     holiday['Holiday'] = cells[0].string
                     holidays.append(holiday)
 
@@ -109,9 +110,12 @@ def numHolidays():
     
         def filter_holidays_by_week(year, week_number):
         # Use a Lambda function to filter by week number and save this as holidays, use the filter on innerHolidays
+        holidays = list(map(lambda x: dt.strptime(x,weekNum), innerHolidays))
         # Week number is part of the the Datetime object
         # Cast filter results as list
+        list(holidays)
         # return your holidays
+        return holidays
 
             def displayHolidaysInWeek(holidayList):
         # Use your filter_holidays_by_week to get list of holidays within a week as a parameter
